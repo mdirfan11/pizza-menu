@@ -93,7 +93,7 @@ function Pizza(props) {
       <div>
       <h3>{props.pizza.name}</h3>
       <p>{props.pizza.ingredients}</p>
-      <span>Price: ${props.pizza.price}</span>
+      <span><b style={{color:"red"}}>Price: </b>${props.pizza.price}</span>
       </div>
     </li>
   );
