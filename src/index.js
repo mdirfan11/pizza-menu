@@ -67,21 +67,36 @@ function Header() {
 }
 
 function Footer() {
+  const hour = new Date().getHours();
+  const openHour = 9;
+  const closeHour = 22;
+  const isOpen = hour >= openHour && hour <= closeHour;
+  console.log(isOpen);
+
   return (
     <footer className="footer">
-      {" "}
-      {new Date().toLocaleTimeString()} We are currently open.
+      {isOpen ? (
+        <div className="order">
+          <button className="btn">ORDER</button>
+          <p>
+            We'r open till {closeHour}:00 come visit us or order online.
+          </p>
+        </div>
+      ) : <p> We'r closed please visit us between {openHour}:00 and {closeHour}:00</p>}
     </footer>
   );
 }
 
 function Menu() {
+  const pizzas = pizzaData;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
+      {pizzas.length > 0 ? (
       <ul className="pizzas">
-        {pizzaData.map((pizza) => (<Pizza pizza={pizza} />))}
-      </ul>  
+        {pizzaData.map((pizza) => (<Pizza pizza={pizza} key={pizza.name} />))}
+      </ul>
+      ) : <p>We'r working on our menu please come back after some time :)</p>}  
     </main>
   );
 }
