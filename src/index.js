@@ -15,7 +15,7 @@ const pizzaData = [
     ingredients: "Tomato and mozarella",
     price: 10,
     photoName: "pizzas/margherita.jpg",
-    soldOut: false,
+    soldOut: true,
   },
   {
     name: "Pizza Spinaci",
@@ -76,12 +76,7 @@ function Footer() {
   return (
     <footer className="footer">
       {isOpen ? (
-        <div className="order">
-          <button className="btn">ORDER</button>
-          <p>
-            We'r open till {closeHour}:00 come visit us or order online.
-          </p>
-        </div>
+        <Order closeHour={closeHour} />
       ) : <p> We'r closed please visit us between {openHour}:00 and {closeHour}:00</p>}
     </footer>
   );
@@ -102,15 +97,29 @@ function Menu() {
 }
 
 function Pizza(props) {
+  //if (props.pizza.soldOut) return null;
   return (
-    <li className="pizza">
+    <li className={`pizza ${props.pizza.soldOut ? "sold-out" : ""}`}>
       <img src={props.pizza.photoName} alt={props.pizza.name} />
       <div>
-      <h3>{props.pizza.name}</h3>
-      <p>{props.pizza.ingredients}</p>
-      <span><b style={{color:"red"}}>Price: </b>${props.pizza.price}</span>
+        <h3>{props.pizza.name}</h3>
+        <p>{props.pizza.ingredients}</p>
+        {props.pizza.soldOut ? (
+          <span>SOLD OUT</span>
+        ) : <span><b style={{color:"red"}}>Price: </b>${props.pizza.price}</span>}
       </div>
     </li>
+  );
+}
+
+function Order(props) {
+  return (
+    <div className="order">
+      <button className="btn">ORDER</button>
+      <p>
+        We'r open till {props.closeHour}:00 come visit us or order online.
+      </p>
+    </div>
   );
 }
 
